@@ -9,7 +9,6 @@ GAINS = 1
 LOSSES = 1
 SAMPLE_SIZE = 10
 t = Tree(TREE_FILE)
-n = len(list(t.traverse()))
 
 # produce a multiset from a set a and its multiplicities
 def multi(a, ms) :
@@ -28,7 +27,7 @@ def getTotalPermutations(g,l,n):
 def generateRandomTree(t:Tree, permutations:list):
     permutation = random.choice(permutations)
     for index, node in enumerate(t.traverse("postorder")):
-        node.addfeature("mutation",permutation[index])
+        node.add_feature("mutation",permutation[index])
     return t, permutation
 
 def isValidTree(t:Tree):
@@ -47,9 +46,14 @@ def consecutiveDuplicates(l):
             return True;
     return False;
 
+
+#############################################################
+n = len(list(t.traverse()))
+p = getTotalPermutations(GAINS,LOSSES,n)
 count = 0
+
 for i in range(SAMPLE_SIZE):
-    sampleTree, samplePermutation = generateRandomTree(t, 1, 1, n)
+    sampleTree, samplePermutation = generateRandomTree(t, p)
     if isValidTree(sampleTree):
         count +=1
 
