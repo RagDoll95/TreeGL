@@ -31,14 +31,21 @@ def generateRandomTree(t:Tree, permutations:list):
         node.addfeature("mutation",permutation[index])
     return t, permutation
 
+def isValidTree(t:Tree):
+    # Traverse from all the leaves to the root. If there are ever two gains or two losses in a row, then it is not a valid tree
+    validTree = True
+    for leafNode in t.get_leaves():
+        l = [node.mutation for node in  leafNode.iter_ancestors() if node.mutation != "N"]
+        if consecutiveDuplicates(l):
+            validTree = False
+            break
+    return validTree
 
-
-def isValidTree(t):
-    # idea: traverse to all the leaves, if there is ever two identical features in a row (i.e, two gains or two losses)
-    # then it's not a valid tree.
-    return False
-
-
+def consecutiveDuplicates(l):
+    for i in range (len(l) - 1):
+        if l[i] == l[i + 1]:
+            return True;
+    return False;
 
 count = 0
 for i in range(SAMPLE_SIZE):
