@@ -22,7 +22,7 @@ def multi(a, ms) :
 def getTotalPermutations(g,l,n):
     s = {"G","L","N"}
     multiSet = multi(s,[GAINS,LOSSES,n-(GAINS+LOSSES)])
-    return list(multiset_permutations(s))
+    return list(multiset_permutations(multiSet))
 
 def generateRandomTree(t:Tree, permutations:list):
     permutation = random.choice(permutations)
@@ -48,10 +48,10 @@ def consecutiveDuplicates(l):
 
 
 #############################################################
+
 n = len(list(t.traverse()))
 p = getTotalPermutations(GAINS,LOSSES,n)
 count = 0
-
 for i in range(SAMPLE_SIZE):
     sampleTree, samplePermutation = generateRandomTree(t, p)
     if isValidTree(sampleTree):
