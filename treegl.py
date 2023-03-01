@@ -51,12 +51,16 @@ def consecutiveDuplicates(l):
 
 n = len(list(t.traverse()))
 p = getTotalPermutations(GAINS,LOSSES,n)
+previouslyComputed = dict()
 count = 0
 for i in range(SAMPLE_SIZE):
     sampleTree, samplePermutation = generateRandomTree(t, p)
-    if isValidTree(sampleTree):
-        count +=1
-
+    if str(samplePermutation) not in previouslyComputed:
+        previouslyComputed[str(samplePermutation)] = True
+        if isValidTree(sampleTree):
+            count +=1
+    else:
+        SAMPLE_SIZE+=1
 
 estimated_gains_losses = math.comb(n , GAINS + LOSSES) * (count / SAMPLE_SIZE)
 
